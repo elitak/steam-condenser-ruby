@@ -93,7 +93,7 @@ module SteamCondenser
       xml_data = MultiXml.parse(open(url, {:proxy => true})).values.first
 
       error = xml_data['error']
-      raise SteamCondenserError, error unless error.nil?
+      raise Error, error unless error.nil?
 
       xml_data['entries']['entry'].each do |entry_data|
         if entry_data['steamid'].to_i == steam_id
@@ -120,7 +120,7 @@ module SteamCondenser
       xml_data = MultiXml.parse(open(url, {:proxy => true})).values.first
 
       error = xml_data['error']
-      raise SteamCondenserError, error unless error.nil?
+      raise Error, error unless error.nil?
 
       entries = []
       xml_data['entries']['entry'].each do |entry_data|
@@ -144,12 +144,12 @@ module SteamCondenser
     #         leaderboard
     def entry_range(first, last)
       if last < first
-        raise SteamCondenserError,
+        raise Error,
           'First entry must be prior to last entry for leaderboard entry lookup.'
       end
 
       if (last - first) > 5000
-        raise SteamCondenserError,
+        raise Error,
           'Leaderboard entry lookup is currently limited to a maximum of 5001 entries per request.'
       end
 
@@ -157,7 +157,7 @@ module SteamCondenser
       xml_data = MultiXml.parse(open(url, {:proxy => true})).values.first
 
       error = xml_data['error']
-      raise SteamCondenserError, error unless error.nil?
+      raise Error, error unless error.nil?
 
       entries = []
       xml_data['entries']['entry'].each do |entry_data|
@@ -192,7 +192,7 @@ module SteamCondenser
       boards_data = MultiXml.parse(open(url, {:proxy => true})).values.first
 
       error = boards_data['error']
-      raise SteamCondenserError, error unless error.nil?
+      raise Error, error unless error.nil?
 
       @@leaderboards[game_name] = []
       boards_data['leaderboard'].each do |board_data|

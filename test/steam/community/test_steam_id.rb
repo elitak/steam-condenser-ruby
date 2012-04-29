@@ -115,7 +115,7 @@ class TestSteamId < Test::Unit::TestCase
     end
 
     should 'raise an exception when parsing invalid XML' do
-      error = assert_raises SteamCondenser::SteamCondenserError do
+      error = assert_raises SteamCondenser::Error do
         url = fixture_io 'invalid.xml'
         SteamCondenser::SteamId.any_instance.expects(:open).with('http://steamcommunity.com/id/son_of_thor?xml=1', { :proxy => true }).returns url
 

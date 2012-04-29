@@ -3,12 +3,12 @@
 #
 # Copyright (c) 2008-2012, Sebastian Staudt
 
-require 'errors/timeout_error'
 require 'steam/packets/a2m_get_servers_batch2_packet'
 require 'steam/packets/c2m_checkmd5_packet'
 require 'steam/packets/s2m_heartbeat2_packet'
 require 'steam/servers/server'
 require 'steam/sockets/master_server_socket'
+require 'steam-condenser/error/timeout'
 
 module SteamCondenser
 
@@ -115,8 +115,8 @@ module SteamCondenser
     # @param [String] filters The filters that game servers should match
     # @param [Boolean] force Return a list of servers even if an error occured
     #        while fetching them from the master server
-    # @raise [SteamCondenser::TimeoutError] if too many timeouts occur while
-    #        querying the master server
+    # @raise [Error::Timeout] if too many timeouts occur while querying the
+    #        master server
     # @return [Array<Array<String>>] A list of game servers matching the given
     #         region and filters
     # @see A2M_GET_SERVERS_BATCH2_Packet
@@ -142,15 +142,17 @@ module SteamCondenser
                 end
               end
               fail_count = 0
-            rescue SteamCondenser::TimeoutError
+            rescue Error::Timeout
               raise $! if (fail_count += 1) == @@retries
               if $DEBUG
                 puts "Request to master server #@ip_address timed out, retrying..."
               end
             end
-          end
+          end while !finished
         end
-      end while !finished
+      rescue Error::Timeout
+        raise $! unless force
+      end
 
       server_array
     end
@@ -162,8 +164,8 @@ module SteamCondenser
     # @deprecated
     # @param [Hash<Symbol, Object>] data The data to send with the heartbeat
     #        request
-    # @raise [SteamCondenserError] if heartbeat data is missing the
-    #        challenge number or the reply cannot be parsed
+    # @raise [Error] if heartbeat data is missing the challenge number or the
+    #        reply cannot be parsed
     # @return [Array<SteamPacket>] Zero or more reply packets from the server.
     #         Zero means either the heartbeat was accepted by the master or there
     #         was a timeout. So usually it's best to repeat a heartbeat a few
@@ -177,7 +179,7 @@ module SteamCondenser
 
         begin
           loop { reply_packets << @socket.reply }
-        rescue SteamCondenser::TimeoutError
+        rescue Error::Timeout
         end
       end
 

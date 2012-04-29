@@ -3,10 +3,10 @@
 #
 # Copyright (c) 2008-2012, Sebastian Staudt
 
-require 'errors/steam_condenser_error'
 require 'steam/community/cacheable'
 require 'steam/community/steam_id'
 require 'steam/community/xml_data'
+require 'steam-condenser/error'
 
 module SteamCondenser
 
@@ -123,7 +123,7 @@ module SteamCondenser
           @members << SteamId.new(member.to_i, false)
         end
       rescue
-        raise SteamCondenserError, 'XML data could not be parsed.', $!.backtrace
+        raise Error, 'XML data could not be parsed.', $!.backtrace
       end
 
       total_pages
