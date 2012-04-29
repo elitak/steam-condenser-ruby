@@ -1,18 +1,19 @@
 # This code is free software; you can redistribute it and/or modify it under
 # the terms of the new BSD License.
 #
-# Copyright (c) 2010-2011, Sebastian Staudt
+# Copyright (c) 2010-2012, Sebastian Staudt
 
 require 'steam/packets/steam_packet'
 
-# This packet class represents a C2M_CHECKMD5 request sent to a master server
-#
-# It is used to initialize (challenge) master server communication.
-#
-# @author Sebastian Staudt
-# @deprecated
-# @see MasterServer#challenge
 module SteamCondenser
+
+  # This packet class represents a C2M_CHECKMD5 request sent to a master server
+  #
+  # It is used to initialize (challenge) master server communication.
+  #
+  # @author Sebastian Staudt
+  # @deprecated
+  # @see MasterServer#challenge
   class C2M_CHECKMD5_Packet
 
     include SteamPacket

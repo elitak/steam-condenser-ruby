@@ -1,19 +1,20 @@
 # This code is free software; you can redistribute it and/or modify it under
 # the terms of the new BSD License.
 #
-# Copyright (c) 2011, Sebastian Staudt
+# Copyright (c) 2011-2012, Sebastian Staudt
 
 require 'steam/packets/steam_packet'
 
-# This packet class represent a M2S_REQUESTRESTART response replied from a
-# master server
-#
-# It is used to request a game server restart, e.g. when the server is
-# outdated.
-#
-# @author Sebastian Staudt
-# @see MasterServer#send_heartbeat
 module SteamCondenser
+
+  # This packet class represent a M2S_REQUESTRESTART response replied from a
+  # master server
+  #
+  # It is used to request a game server restart, e.g. when the server is
+  # outdated.
+  #
+  # @author Sebastian Staudt
+  # @see MasterServer#send_heartbeat
   class M2S_REQUESTRESTART_Packet
 
     include SteamPacket

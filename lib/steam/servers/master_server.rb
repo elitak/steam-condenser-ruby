@@ -1,7 +1,7 @@
 # This code is free software; you can redistribute it and/or modify it under
 # the terms of the new BSD License.
 #
-# Copyright (c) 2008-2011, Sebastian Staudt
+# Copyright (c) 2008-2012, Sebastian Staudt
 
 require 'errors/timeout_error'
 require 'steam/packets/a2m_get_servers_batch2_packet'
@@ -10,15 +10,16 @@ require 'steam/packets/s2m_heartbeat2_packet'
 require 'steam/servers/server'
 require 'steam/sockets/master_server_socket'
 
-# This class represents a Steam master server and can be used to get game
-# servers which are publicly available
-#
-# An intance of this class can be used much like Steam's server browser to get
-# a list of available game servers, including filters to narrow down the search
-# results.
-#
-# @author Sebastian Staudt
 module SteamCondenser
+
+  # This class represents a Steam master server and can be used to get game
+  # servers which are publicly available
+  #
+  # An intance of this class can be used much like Steam's server browser to get
+  # a list of available game servers, including filters to narrow down the search
+  # results.
+  #
+  # @author Sebastian Staudt
   class MasterServer
 
     include Server

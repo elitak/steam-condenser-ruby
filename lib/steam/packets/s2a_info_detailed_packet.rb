@@ -1,19 +1,20 @@
 # This code is free software; you can redistribute it and/or modify it under
 # the terms of the new BSD License.
 #
-# Copyright (c) 2008-2011 Sebastian Staudt
+# Copyright (c) 2008-2012, Sebastian Staudt
 
 require 'steam/packets/s2a_info_base_packet'
 
-# This class represents a S2A_INFO_DETAILED response packet sent by a GoldSrc
-# server
-#
-# @author Sebastian Staudt
-# @deprecated Only outdated GoldSrc servers (before 10/24/2008) use this
-#             format. Newer ones use the same format as Source servers now (see
-#             {S2A_INFO2_Packet}).
-# @see GameServer#update_server_info
 module SteamCondenser
+
+  # This class represents a S2A_INFO_DETAILED response packet sent by a GoldSrc
+  # server
+  #
+  # @author Sebastian Staudt
+  # @deprecated Only outdated GoldSrc servers (before 10/24/2008) use this
+  #             format. Newer ones use the same format as Source servers now
+  #             (see {S2A_INFO2_Packet}).
+  # @see GameServer#update_server_info
   class S2A_INFO_DETAILED_Packet
 
     include S2A_INFO_BasePacket

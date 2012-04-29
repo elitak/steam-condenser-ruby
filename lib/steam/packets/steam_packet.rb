@@ -1,16 +1,17 @@
 # This code is free software; you can redistribute it and/or modify it under
 # the terms of the new BSD License.
 #
-# Copyright (c) 2008-2011, Sebastian Staudt
+# Copyright (c) 2008-2012, Sebastian Staudt
 
 require 'core_ext/stringio'
 
-# This module implements the basic functionality used by most of the packets
-# used in communication with master, Source or GoldSrc servers.
-#
-# @author Sebastian Staudt
-# @see SteamPacketFactory
 module SteamCondenser
+
+  # This module implements the basic functionality used by most of the packets
+  # used in communication with master, Source or GoldSrc servers.
+  #
+  # @author Sebastian Staudt
+  # @see SteamPacketFactory
   module SteamPacket
 
     A2M_GET_SERVERS_BATCH2_HEADER = 0x31

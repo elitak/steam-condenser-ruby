@@ -1,18 +1,19 @@
 # This code is free software; you can redistribute it and/or modify it under
 # the terms of the new BSD License.
 #
-# Copyright (c) 2011, Sebastian Staudt
+# Copyright (c) 2011-2012, Sebastian Staudt
 
 require 'steam/packets/steam_packet'
 
-# This packet class represents a M2S_ISVALIDMD5 response replied by a master
-# server
-#
-# It is used to provide a challenge number to a game server
-#
-# @author Sebastian Staudt
-# @see MasterServer#challenge
 module SteamCondenser
+
+  # This packet class represents a M2S_ISVALIDMD5 response replied by a master
+  # server
+  #
+  # It is used to provide a challenge number to a game server
+  #
+  # @author Sebastian Staudt
+  # @see MasterServer#challenge
   class M2C_ISVALIDMD5_Packet
 
     include SteamPacket

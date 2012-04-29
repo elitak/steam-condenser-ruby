@@ -1,20 +1,21 @@
 # This code is free software; you can redistribute it and/or modify it under
 # the terms of the new BSD License.
 #
-# Copyright (c) 2010-2011, Sebastian Staudt
+# Copyright (c) 2010-2012, Sebastian Staudt
 
 require 'steam/packets/steam_packet'
 
-# This class represents a S2M_HEARTBEAT2 packet sent by game servers to master
-# servers
-#
-# It is used to signal the game server's availability and status to the master
-# servers.
-#
-# @author Sebastian Staudt
-# @deprecated
-# @see MasterServer#send_heartbeat
 module SteamCondenser
+
+  # This class represents a S2M_HEARTBEAT2 packet sent by game servers to
+  # master servers
+  #
+  # It is used to signal the game server's availability and status to the
+  # master servers.
+  #
+  # @author Sebastian Staudt
+  # @deprecated
+  # @see MasterServer#send_heartbeat
   class S2M_HEARTBEAT2_Packet
 
     include SteamPacket
@@ -45,8 +46,8 @@ module SteamCondenser
 
     # Creates a new S2M_HEARTBEAT2 packet object based on the given data
     #
-    # @param [Hash<Symbol, Object>] data The data to send with the heartbeat. The
-    #        data contents are merge with the values from {DEFAULT_DATA}.
+    # @param [Hash<Symbol, Object>] data The data to send with the heartbeat.
+    #        The data contents are merge with the values from {DEFAULT_DATA}.
     # @raise [SteamCondenserError] when the required challenge number is
     #        missing
     def initialize(data = {})
