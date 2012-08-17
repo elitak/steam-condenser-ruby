@@ -6,9 +6,9 @@
 require 'steam/packets/a2m_get_servers_batch2_packet'
 require 'steam/packets/c2m_checkmd5_packet'
 require 'steam/packets/s2m_heartbeat2_packet'
-require 'steam/sockets/master_server_socket'
 require 'steam-condenser/error/timeout'
 require 'steam-condenser/servers/base_server'
+require 'steam-condenser/servers/sockets/master_server_socket'
 
 module SteamCondenser
 
@@ -89,7 +89,7 @@ module SteamCondenser
       #
       # @see MasterServerSocket
       def init_socket
-        @socket = MasterServerSocket.new @ip_address, @port
+        @socket = Sockets::MasterServerSocket.new @ip_address, @port
       end
 
       # Returns a list of game server matching the given region and filters
