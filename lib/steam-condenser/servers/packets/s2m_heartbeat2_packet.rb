@@ -3,9 +3,9 @@
 #
 # Copyright (c) 2010-2012, Sebastian Staudt
 
-require 'steam/packets/steam_packet'
+require 'steam-condenser/servers/packets/base_packet'
 
-module SteamCondenser
+module SteamCondenser::Servers::Packets
 
   # This class represents a S2M_HEARTBEAT2 packet sent by game servers to
   # master servers
@@ -18,7 +18,7 @@ module SteamCondenser
   # @see MasterServer#send_heartbeat
   class S2M_HEARTBEAT2_Packet
 
-    include SteamPacket
+    include BasePacket
 
     # Default data to send with a S2M_HEARTBEAT2 packet
     DEFAULT_DATA = {

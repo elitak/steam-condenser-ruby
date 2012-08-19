@@ -3,11 +3,11 @@
 #
 # Copyright (c) 2008-2012, Sebastian Staudt
 
-require 'steam/packets/a2m_get_servers_batch2_packet'
-require 'steam/packets/c2m_checkmd5_packet'
-require 'steam/packets/s2m_heartbeat2_packet'
 require 'steam-condenser/error/timeout'
 require 'steam-condenser/servers/base_server'
+require 'steam-condenser/servers/packets/a2m_get_servers_batch2_packet'
+require 'steam-condenser/servers/packets/c2m_checkmd5_packet'
+require 'steam-condenser/servers/packets/s2m_heartbeat2_packet'
 require 'steam-condenser/servers/sockets/master_server_socket'
 
 module SteamCondenser
@@ -80,7 +80,7 @@ module SteamCondenser
       # @see #send_heartbeat
       def challenge
         failsafe do
-          @socket.send C2M_CHECKMD5_Packet.new
+          @socket.send Packets::C2M_CHECKMD5_Packet.new
           @socket.reply.challenge
         end
       end
@@ -132,7 +132,7 @@ module SteamCondenser
           failsafe do
             fail_count = 0
             begin
-              @socket.send A2M_GET_SERVERS_BATCH2_Packet.new(region_code, current_server, filters)
+              @socket.send Packets::A2M_GET_SERVERS_BATCH2_Packet.new(region_code, current_server, filters)
               begin
                 servers = @socket.reply.servers
                 servers.each do |server|
@@ -177,7 +177,7 @@ module SteamCondenser
         reply_packets = []
 
         failsafe do
-          @socket.send S2M_HEARTBEAT2_Packet.new(data)
+          @socket.send Packets::S2M_HEARTBEAT2_Packet.new(data)
 
           begin
             loop { reply_packets << @socket.reply }

@@ -3,9 +3,9 @@
 #
 # Copyright (c) 2011-2012, Sebastian Staudt
 
-require 'steam/packets/steam_packet'
+require 'steam-condenser/servers/packets/base_packet'
 
-module SteamCondenser
+module SteamCondenser::Servers::Packets
 
   # This packet class represents a M2S_ISVALIDMD5 response replied by a master
   # server
@@ -16,7 +16,7 @@ module SteamCondenser
   # @see MasterServer#challenge
   class M2C_ISVALIDMD5_Packet
 
-    include SteamPacket
+    include BasePacket
 
     # Returns the challenge number to use for master server communication
     #

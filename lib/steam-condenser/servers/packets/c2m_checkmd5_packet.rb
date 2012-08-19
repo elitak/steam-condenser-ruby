@@ -3,9 +3,9 @@
 #
 # Copyright (c) 2010-2012, Sebastian Staudt
 
-require 'steam/packets/steam_packet'
+require 'steam-condenser/servers/packets/base_packet'
 
-module SteamCondenser
+module SteamCondenser::Servers::Packets
 
   # This packet class represents a C2M_CHECKMD5 request sent to a master server
   #
@@ -16,7 +16,7 @@ module SteamCondenser
   # @see MasterServer#challenge
   class C2M_CHECKMD5_Packet
 
-    include SteamPacket
+    include BasePacket
 
     # Creates a new C2M_CHECKMD5 request object
     def initialize
