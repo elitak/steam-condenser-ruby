@@ -29,7 +29,9 @@ class GameAchievement
   # Return the game this achievement belongs to
   #
   # @return [Steam] The game this achievement belongs to
-  attr_reader :game
+  attr_reader :game_schema
+
+  attr_reader :hidden
 
   # Returns the url for the closed icon of this achievement
   #
@@ -46,16 +48,6 @@ class GameAchievement
   # @return [String] The name of this achievement
   attr_reader :name
 
-  # Returns the time this achievement has been unlocked by its owner
-  #
-  # @return [Time] The time this achievement has been unlocked
-  attr_reader :timestamp
-
-  # Returns the SteamID of the user who owns this achievement
-  #
-  # @return [Fixnum] The SteamID of this achievement's owner
-  attr_reader :user
-
   # Loads the global unlock percentages of all achievements for the game with
   # the given Steam Application ID
   #
@@ -69,7 +61,8 @@ class GameAchievement
   def self.global_percentages(app_id)
     percentages = {}
 
-    data = WebApi.json('ISteamUserStats', 'GetGlobalAchievementPercentagesForApp', 2, { :gameid => app_id })
+    params = { :gameid => app_id }
+    data = WebApi.json 'ISteamUserStats', 'GetGlobalAchievementPercentagesForApp', 2, params
     MultiJson.load(data, { :symbolize_keys => true })[:achievementpercentages][:achievements].each do |percentage|
       percentages[percentage[:name].to_sym] = percentage[:percent]
     end
@@ -80,30 +73,21 @@ class GameAchievement
   # Creates the achievement with the given name for the given user and game
   # and achievement data
   #
-  # @param [SteamId] user The SteamID of the player this achievement belongs to
-  # @param [SteamGame] game The game this achievement belongs to
-  # @param [Hash<String, Object>] achievement_data The achievement data
-  #        extracted from XML
-  def initialize(user, game, achievement_data)
-    @api_name        = achievement_data['apiname']
-    @description     = achievement_data['description']
-    @game            = game
-    @icon_closed_url = achievement_data['iconClosed']
-    @icon_open_url   = achievement_data['iconOpen']
-    @name            = achievement_data['name']
-    @unlocked        = (achievement_data['closed'].to_i == 1)
-    @user            = user
-
-    if @unlocked && !achievement_data['unlockTimestamp'].nil?
-      @timestamp  = Time.at(achievement_data['unlockTimestamp'].to_i)
-    end
+  # @param [GameStatsSchema] game_schema The game this achievement belongs to
+  # @param [Hash<String, Object>] data The achievement data extracted from the
+  #        game schema
+  def initialize(game_schema, data)
+    @api_name        = data[:name]
+    @description     = data[:description]
+    @game_schema     = game_schema
+    @hidden          = data[:hidden] == 1
+    @icon_closed_url = data[:icon]
+    @icon_open_url   = data[:icongray]
+    @name            = data[:displayName]
   end
 
-  # Returns whether this achievement has been unlocked by its owner
-  #
-  # @return [Boolean] `true` if the achievement has been unlocked by the user
-  def unlocked?
-    @unlocked
+  def inspect
+    "#<#{self.class}:#@api_name>"
   end
 
 end
